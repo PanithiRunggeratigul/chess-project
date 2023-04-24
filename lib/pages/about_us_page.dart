@@ -36,7 +36,7 @@ class AboutUsWidget extends StatelessWidget {
             ),
             SizedBox(height: 16.0),
             Text(
-              "Email: info@ourcompany.com",
+              "https://github.com/PanithiRunggeratigul/chess-project",
               style: TextStyle(fontSize: 16.0),
             ),
           ],
