@@ -58,7 +58,8 @@ class _PlayerListWidgetState extends State<PlayerListWidget> {
                 roomID: uid,
               )));
     } else {
-      Utils.showSnackBar("Player is Offline");
+      Utils.showSnackBar(
+          "Player is either offline or the room is not available");
     }
   }
 
