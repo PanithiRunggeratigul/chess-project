@@ -101,11 +101,27 @@ class _GameRoomState extends State<GameRoom> {
                               to: playerMoves["moveTo"],
                               pieceToPromoteTo: playerMoves["piecetoPromote"]);
                         }
+
+                        if (playerMoves["gamestatus"] == "end") {
+                          // showWinner();
+                          showDialog<String>(
+                              context: context,
+                              builder: (BuildContext context) => AlertDialog(
+                                    title: Text("Game Over"),
+                                    actions: <Widget>[
+                                      TextButton(
+                                        onPressed: () =>
+                                            Navigator.pop(context, 'OK'),
+                                        child: const Text('OK'),
+                                      ),
+                                    ],
+                                  ));
+                        }
                         // if (controller.makeMoveWithPromotion(from: from, to: to, pieceToPromoteTo: pieceToPromoteTo))
                       } catch (e) {
                         print(e);
                       }
-                      print(playerTurn);
+                      // print(playerTurn);
                     });
                     return ListView(
                       children: <Widget>[
@@ -149,14 +165,20 @@ class _GameRoomState extends State<GameRoom> {
 
   void onOtherMoved(
       String moveFrom, String moveTo, String piecetoPromote) async {
+    String gamestatus = "ongoing";
     DateTime time = DateTime.now();
     // String formattedDate = DateFormat('yyyy-MM-dd – kk:mm').format(time);
     // print(formattedDate);
+    if (controller.isCheckMate()) {
+      gamestatus = "end";
+    }
+
     Map<String, dynamic> moves = {
       "moveFrom": moveFrom,
       "moveTo": moveTo,
       "piecetoPromote": piecetoPromote,
       "playermove": _auth.currentUser!.email,
+      "gamestatus": gamestatus,
       "timestamp": time,
     };
 
